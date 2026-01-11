@@ -1,0 +1,84 @@
+# Python Template for Codex
+
+開発を素早く立ち上げるための最小構成テンプレートです。`uv` を用いた依存管理、`ruff`/`pytest` による品質チェック、ドキュメント駆動のワークフローを前提としています。
+
+## 前提ツールのインストール（必須）
+
+以下の2つが必須です。代替手段は設けません。
+
+- **uv**: 依存管理とコマンド実行に使用。
+- **gh (GitHub CLI)**: PR 作成・レビュー対応に使用。
+
+### macOS (Homebrew)
+```bash
+brew install astral-sh/uv/uv
+brew install gh
+```
+
+### Linux
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update && sudo apt install gh
+```
+
+インストール後、`uv --version` と `gh --version` が通ることを確認してください。
+
+## 推奨ツール（任意・ローカル効率化）
+
+検索・レビューを高速化するための推奨CLIツールです。CIの前提にはしません。
+
+- ripgrep (`rg`), fd, bat, jq, yq (mikefarah版), git-delta (`delta`), direnv
+
+### macOS (Homebrew)
+```bash
+brew install ripgrep fd bat jq yq git-delta direnv
+```
+
+### Debian/Ubuntu 系
+```bash
+sudo apt-get update
+sudo apt-get install -y ripgrep fd-find bat jq git-delta direnv
+# fd-find の実行ファイルは fdfind なので、fd にエイリアスを張る
+command -v fd >/dev/null || sudo ln -s /usr/bin/fdfind /usr/local/bin/fd
+# yq (mikefarah版) - バイナリ取得
+curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+  -o /tmp/yq && sudo install /tmp/yq /usr/local/bin/yq
+```
+
+インストール後は `rg --version` などで動作確認してください。
+
+## クイックスタート
+
+```bash
+uv sync            # 依存関係をインストール（.venv を作成）
+make post-change   # format → lint → test を一括実行
+uv run pytest -k ...  # 任意でテストを絞り込み
+```
+
+## リポジトリ構成
+
+- `src/python_template_for_codex/` : サンプルの Pydantic ベース設定モデル
+- `tests/` : テンプレートのテスト（TDD の起点）
+- `docs/REQUIREMENTS.md` : 現行の要求仕様
+- `docs/DESIGN.md` : アーキテクチャと設計ドキュメント
+- `plans/` : 仕様追加・変更時に作成するプラン置き場（`plans/TEMPLATE.md` を雛形に）
+- `Makefile` : format/lint/test 用コマンド
+- `.github/workflows/ci.yml` : GitHub Actions で `make post-change` を自動実行
+
+## ワークフロー（抜粋）
+
+1. 仕様追加・変更はまず `plans/` にプランを作成し、TDD で実装。
+2. 非テストコードを触ったら必ず対応するテストを追加/更新。
+3. 実装後は `make post-change` を実行しエラーが出ないことを確認する（CI も同じコマンドを実行）。
+4. docs 下のドキュメントを最新状態に上書きで反映し、`plans/` 下のプランを削除する。
+
+## コーディング規約メモ
+
+- Python 3.12 / 型ヒント標準形（`dict[str, int]` など）を使用。
+- 依存管理・実行は `uv` で統一。遅延 import は避ける。
+- データモデルは Pydantic を利用。
+
+より詳細なルールやライフサイクルは `AGENTS.md` を参照してください。
