@@ -68,6 +68,7 @@ uv run pytest -k ...  # 任意でテストを絞り込み
 
 - `template-bootstrapper`: テンプレート初期化と初回プラン作成のガイド
 - `planner`: 新規仕様追加・変更の要請を対話で明確化し、`plans/TEMPLATE.md` をコピーしてプランを作る
+- `plan-reviewer`: 実装後にプランとコード/テストの整合をセルフレビューする
 - `repo-guarder`: TDD/ドキュメント更新/禁止事項などのガードレール
 - `uv-runner`: uvの依存管理・実行・トラブルシュート
 - `pytest-driver`: 失敗テスト先行のTDDとテスト設計チェック

@@ -38,6 +38,7 @@
 - [ ] テストを先に作成（正常系/異常系/境界を具体列挙）
 - [ ] 実装（対象ファイル/クラス/関数を明記）
 - [ ] リファクタ（重複・複雑さの整理）
+- [ ] セルフレビュー（plan-reviewer でプランとコード/テストの一致確認）
 - [ ] ドキュメント更新（docs/REQUIREMENTS.md, docs/DESIGN.md など）
 
 ## テストケース（具体）
@@ -84,6 +85,7 @@
 ### タスク
 - [ ] `ExportRequest` と `CsvExporter` を追加
 - [ ] `tests/test_exporter.py` に正常/異常/境界テスト追加
+- [ ] plan-reviewer でプランとコード/テストの一致を確認
 - [ ] docs更新（REQUIREMENTS/DESIGN/CHANGELOG）
 
 ### テストケース
