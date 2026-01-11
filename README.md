@@ -12,13 +12,20 @@
 brew install uv gh
 ```
 
-### Linux
+### Linux (Debian/Ubuntu)
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update && sudo apt install gh
+
+# GitHub CLI (official apt repository)
+type -p wget >/dev/null || (sudo apt update && sudo apt install -y wget)
+sudo mkdir -p -m 755 /etc/apt/keyrings
+out=$(mktemp) && wget -nv -O"$out" https://cli.github.com/packages/githubcli-archive-keyring.gpg
+cat "$out" | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+sudo mkdir -p -m 755 /etc/apt/sources.list.d
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+sudo apt update
+sudo apt install -y gh
 ```
 
 インストール後、`uv --version` と `gh --version` が通ることを確認してください。
