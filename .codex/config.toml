@@ -1,5 +1,5 @@
-model = "gpt-5.2-codex-max"
-review_model = "gpt-5.2-codex-max"
+model = "gpt-5.2-codex"
+review_model = "gpt-5.2-codex"
 model_reasoning_effort = "xhigh"
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
