@@ -9,8 +9,7 @@
 
 ### macOS (Homebrew)
 ```bash
-brew install astral-sh/uv/uv
-brew install gh
+brew install uv gh
 ```
 
 ### Linux
