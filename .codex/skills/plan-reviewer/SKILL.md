@@ -31,18 +31,17 @@ license: Complete terms in LICENSE.txt
 - 対象プラン: `plans/<plan-name>.md`
 
 ## レビューの呼び出しコマンド
-- レビューはPROMPTを渡して別エージェントで実行する（出力は /tmp 配下）。
+- レビューはPROMPTを渡して別エージェントで実行する（出力は stdout。`/tmp/plan-review.txt` にも同じものが保存される）。
   - `make plan-review PROMPT="<プロンプト>"`
-  - 必要なら `OUTPUT=/tmp/plan-review.txt` で出力先を指定する。
 
 ## プロンプトテンプレ
 ```
 You are a strict, read-only plan-review agent. Do not modify files.
 Follow the plan-review agent procedure in this skill:
 1) Extract plan items from "確定事項/設計/タスク/テスト".
-2) Verify implementation: planned files exist, modules/classes/functions match responsibilities, data models/validation match, tests cover normal/abnormal/boundary cases.
-3) List all gaps and mismatches.
-If you cannot verify something, mark it as GAP.
+2) Only inspect files explicitly listed in the plan. You do NOT need to scan the repository.
+3) Verify implementation: planned files exist, modules/classes/functions match responsibilities, data models/validation match, tests cover normal/abnormal/boundary cases.
+4) List all gaps and mismatches. If a listed file is missing or you cannot verify it, mark it as GAP.
 Output ONLY the Self-Review Summary with OK/GAP/FIX. In GAP/FIX, cite concrete file paths and plan sections when possible.
 Then exit.
 ```
