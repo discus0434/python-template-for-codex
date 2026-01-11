@@ -56,6 +56,15 @@ make post-change   # format → lint → test を一括実行
 uv run pytest -k ...  # 任意でテストを絞り込み
 ```
 
+## 初回利用の流れ（テンプレート初期化）
+
+1. Codexに `template-bootstrapper` を呼び出すよう指示し、リポジトリ名/パッケージ名/README/pyproject を初期化する。
+2. そのタイミングで「このリポジトリで何をするか」を対話で明確化し、最初のプランを作成する。
+   - 何を作るか（目的・成果物）
+   - MVPのスコープとノンゴール
+   - 期限・依存・実行環境の制約
+   - 使用する技術
+
 ## リポジトリ構成
 
 - `src/python_template_for_codex/` : サンプルの Pydantic ベース設定モデル
