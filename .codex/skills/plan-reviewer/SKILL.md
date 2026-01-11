@@ -1,44 +1,50 @@
 ---
 name: plan-reviewer
-description: プラン実装後・docs更新前に必ず使うセルフレビュースキル。プランの「確定事項/設計/タスク」と現コード・テストの一致を確認し、不足や乖離を修正する。
+description: プラン実装後・docs更新前に必ず使うレビュースキル。プランと現コード/テストの一致を別エージェントに確認させ、乖離を洗い出して修正を実施する。
 license: Complete terms in LICENSE.txt
 ---
 
 # Plan Reviewer
 
+## 目的
+- プランと現コード/テストの**一致**を確認し、乖離を洗い出して修正を実施する。
+- レビューエージェントに洗い出しのみ行わせ、あなたが修正を実施する。
+
 ## トリガ
 - 実装が完了し、**docs更新に入る直前**
 - 「プラン通りに実装できているか」確認したいとき
 
-## 目的
-- プランと現コード/テストの**一致**を確認し、不足・乖離を洗い出す。
-- 問題点があれば**修正まで行い**、問題がない状態で次へ進む。
+## 役割分担
+
+### あなた（メインエージェント）
+- `make plan-review` を実行してレビュー結果を取得する。
+- 出力のGAP/FIXをもとに修正する。
+- 乖離がゼロになるまで **レビュー→修正** を繰り返す。
+- 計画変更の合意が必要なズレはユーザーに確認する。
+
+## 運用フロー（ループ）
+1. `make plan-review PROMPT="<プロンプト>"` で乖離を洗い出す。
+2. 出力のGAP/FIXをもとに修正する。
+3. 再度 `make plan-review PROMPT="<プロンプト>"` を実行する。乖離（GAP）がゼロになるまで繰り返す。
 
 ## 入力
 - 対象プラン: `plans/<plan-name>.md`
 
-## 手順
-1. **プラン確認**: 「確定事項/設計/タスク」を抽出する。
-2. **実装確認**:
-   - 追加/更新予定のファイルが揃っているか
-   - 予定したモジュール/クラス/関数が存在し責務が一致するか
-   - テストが計画した正常/異常/境界をカバーしているか
-3. **乖離の洗い出し**: 不足/ズレを箇条書きで列挙。
-4. **修正**: 乖離点を修正する（コード/テスト）。
-5. **再確認**: 乖離がゼロになるまで繰り返す。
-6. **判断が必要なズレ**がある場合はユーザーに戻す（計画変更の合意が必要）。
+## レビューの呼び出しコマンド
+- レビューはPROMPTを渡して別エージェントで実行する（出力は /tmp 配下）。
+  - `make plan-review PROMPT="<プロンプト>"`
+  - 必要なら `OUTPUT=/tmp/plan-review.txt` で出力先を指定する。
 
-## チェック項目（必須）
-- “確定事項/設計/タスク”に対して、現コード・テストがどこまで一致しているか
-- 計画で追加/更新予定のファイルが揃っているか
-- 要件の実装箇所（関数/モジュール）が想定通りか
-
-## 出力フォーマット（例）
+## プロンプトテンプレ
 ```
-Self-Review Summary
-- OK: <一致している点>
-- Gap: <不足/乖離点>
-- Fix: <修正内容>
+You are a strict, read-only plan-review agent. Do not modify files.
+Follow the plan-review agent procedure in this skill:
+1) Extract plan items from "確定事項/設計/タスク/テスト".
+2) Verify implementation: planned files exist, modules/classes/functions match responsibilities, data models/validation match, tests cover normal/abnormal/boundary cases.
+3) List all gaps and mismatches.
+If you cannot verify something, mark it as GAP.
+Output ONLY the Self-Review Summary with OK/GAP/FIX. In GAP/FIX, cite concrete file paths and plan sections when possible.
+Then exit.
 ```
 
 ## 注意
