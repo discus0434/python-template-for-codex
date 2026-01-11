@@ -2,7 +2,7 @@
 
 開発を素早く立ち上げるための最小構成テンプレートです。`uv` を用いた依存管理、`ruff`/`pytest` による品質チェック、ドキュメント駆動のワークフローを前提としています。
 
-## 前提ツールのインストール（必須）
+## 前提ツールのインストール
 
 - **uv**: 依存管理とコマンド実行に使用。
 - **gh (GitHub CLI)**: PR 作成・レビュー対応に使用。
@@ -24,9 +24,9 @@ sudo apt update && sudo apt install gh
 
 インストール後、`uv --version` と `gh --version` が通ることを確認してください。
 
-## 推奨ツール（任意・ローカル効率化）
+## 推奨ツールのインストール（任意）
 
-検索・レビューを高速化するための推奨CLIツールです。CIの前提にはしません。
+検索・レビューを高速化するための推奨CLIツールです。
 
 - ripgrep (`rg`), fd, bat, jq, yq (mikefarah版), git-delta (`delta`), direnv
 
@@ -65,6 +65,17 @@ uv run pytest -k ...  # 任意でテストを絞り込み
    - 期限・依存・実行環境の制約
    - 使用する技術
 
+## 利用できるSkills（概要）
+
+- `template-bootstrapper`: テンプレート初期化と初回プラン作成のガイド
+- `planner`: 新規仕様追加・変更の要請を対話で明確化し、`plans/TEMPLATE.md` をコピーしてプランを作る
+- `repo-guarder`: TDD/ドキュメント更新/禁止事項などのガードレール
+- `uv-runner`: uvの依存管理・実行・トラブルシュート
+- `pytest-driver`: 失敗テスト先行のTDDとテスト設計チェック
+- `docs-maintainer`: REQUIREMENTS/DESIGNの上書き更新とCHANGELOG運用
+- `gh-pr-runner`: gh CLIでのPR作成〜レビュー対応
+- `utility-helper`: ローカル検索・差分・抽出系ツールの活用
+
 ## リポジトリ構成
 
 - `src/python_template_for_codex/` : サンプルの Pydantic ベース設定モデル
@@ -81,11 +92,5 @@ uv run pytest -k ...  # 任意でテストを絞り込み
 2. 非テストコードを触ったら必ず対応するテストを追加/更新。
 3. 実装後は `make post-change` を実行しエラーが出ないことを確認する（CI も同じコマンドを実行）。
 4. docs 下のドキュメントを最新状態に上書きで反映し、`plans/` 下のプランを削除する。
-
-## コーディング規約メモ
-
-- Python 3.12 / 型ヒント標準形（`dict[str, int]` など）を使用。
-- 依存管理・実行は `uv` で統一。遅延 import は避ける。
-- データモデルは Pydantic を利用。
 
 より詳細なルールやライフサイクルは `AGENTS.md` を参照してください。

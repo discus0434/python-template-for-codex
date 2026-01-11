@@ -20,18 +20,10 @@ license: Complete terms in LICENSE.txt
    - `[project] name = "<project-name>"`
    - `dependencies`/`optional-dependencies`があれば必要に応じて調整
 5. READMEを更新（タイトル、概要、セットアップ手順）
-6. 初回要件ヒアリング → 最初のプランを作成
-   - 目的/成果物、主要ユーザー、MVP、制約を短く確認
-   - `plans/TEMPLATE.md` をコピーして最初のプランを埋める
+6. `planner` を呼び出して最初のプランを作成
 7. `.python-version` を必要なら更新（デフォルト3.12）
 8. 初期同期: `uv sync`
 9. 動作確認: `make post-change`
-
-## 初回プラン作成の質問例
-- 何を作るか（目的/成果物）
-- MVPの範囲とノンゴールは？
-- 期限・依存・実行環境の制約は？
-- 使用する技術は？
 
 ## 置換チェックリスト
 - `src/`, `tests/`, `pyproject.toml`, `README.md`, `docs/` 内の旧パッケージ名が残っていないか（`rg <old>`で確認して手動修正）
