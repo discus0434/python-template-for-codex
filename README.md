@@ -44,11 +44,28 @@ brew install ripgrep fd bat jq yq git-delta direnv
 ### Debian/Ubuntu 系
 ```bash
 sudo apt-get update
-sudo apt-get install -y ripgrep fd-find bat jq git-delta direnv
+sudo apt-get install -y ripgrep fd-find bat jq direnv
 # fd-find の実行ファイルは fdfind なので、fd にエイリアスを張る
 command -v fd >/dev/null || sudo ln -s /usr/bin/fdfind /usr/local/bin/fd
-# yq (mikefarah版) - バイナリ取得
-curl -L https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+# bat の実行ファイルは batcat なので、bat にエイリアスを張る
+command -v bat >/dev/null || sudo ln -s /usr/bin/batcat /usr/local/bin/bat
+
+# git-delta - .deb からインストール
+arch=$(dpkg --print-architecture)
+delta_tag=$(curl -fsSL https://api.github.com/repos/dandavison/delta/releases/latest | jq -r .tag_name)
+delta_version=${delta_tag#v}
+curl -fL "https://github.com/dandavison/delta/releases/download/${delta_tag}/git-delta_${delta_version}_${arch}.deb" \
+  -o /tmp/git-delta.deb
+sudo dpkg -i /tmp/git-delta.deb
+
+# yq (mikefarah版) - バイナリ取得（アーキテクチャに合わせる）
+case "$(uname -m)" in
+  x86_64) yq_arch=amd64 ;;
+  aarch64|arm64) yq_arch=arm64 ;;
+  armv7l|armv6l) yq_arch=arm ;;
+  *) echo "Unsupported arch: $(uname -m)" >&2; exit 1 ;;
+esac
+curl -L "https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${yq_arch}" \
   -o /tmp/yq && sudo install /tmp/yq /usr/local/bin/yq
 ```
 
