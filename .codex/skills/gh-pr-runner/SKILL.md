@@ -15,8 +15,7 @@ license: Complete terms in LICENSE.txt
 2. 状態確認: `git status`, `git diff`
 3. テスト: `make post-change`
 4. PR作成:  
-   - `gh pr create --fill`（タイトル/本文を自動生成）  
-   - テンプレ修正が必要なら `gh pr create --title "..."`
+   - `gh pr create --title "..." --body "..."`
 5. レビュー確認: `gh pr view --web` または `gh pr view`
 6. 指摘対応後: 変更→`git commit --amend`（許可される場合のみ）または新規commit → `git push`
 7. マージ: `gh pr merge --squash`（方針に合わせて）  
@@ -29,7 +28,12 @@ license: Complete terms in LICENSE.txt
 
 ## ベストプラクティス
 - PRタイトルは「成果物」を先頭に（例: `Add skill plan-author`）
-- 本文に目的/変更点/テスト結果/リスクを簡潔に記載（`--fill`後に修正）
+- 本文は詳細に記載する。
+  - 目的/背景
+  - 主要な変更点（設計・データモデル・API・挙動）
+  - テスト結果
+  - 既知のリスクや運用前提
+  - 必要なら「プラン（plans/〜）相当の要約」を含める
 - 1 PRあたりスコープを絞る（1〜2営業日以内）
 - 破壊的操作やforce pushはリポ方針に従う。既存コミット改変は合意がある場合のみ。
 
