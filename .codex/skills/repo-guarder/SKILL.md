@@ -13,16 +13,16 @@ license: Complete terms in LICENSE.txt
 - 禁止操作をしないか？（下記参照）
 
 ## ライフサイクル（仕様追加・変更の標準手順）
-1. **プラン作成**: `plans/TEMPLATE.md` をコピーして埋める（1〜2営業日サイズ）。リスクが高ければ分割。
+1. **技術仕様書作成**: `specs/TEMPLATE.md` をコピーして埋める（1〜2営業日サイズ）。リスクが高ければ分割。spec-reviewer で技術仕様書の不備を修正する。
 2. **テスト先行**: 変更点に対応する失敗テストを追加（正常/異常/境界/NotFound/権限の両面）。
 3. **実装**: 最小実装→リファクタ。遅延import・不要フォールバックは禁止。構造化ログを出力する。エラー時は必ずログにtracebackを含む。
 4. **検証**: `make post-change`（ruff format+lint+pytest）。必要に応じて限定pytest。
-5. **セルフレビュー**: plan-reviewer でプランとコード/テストの一致を確認し、乖離があれば修正。
+5. **セルフレビュー**: spec-implementation-reviewer で技術仕様書とコード/テストの一致を確認し、乖離があれば修正。
 6. **ドキュメント**: docs/REQUIREMENTS.md / docs/DESIGN.md を現況で上書き。履歴は `docs/CHANGELOG.md` に日付降順で追記。
-7. **クリーンアップ**: プランの完了条件を満たしたら plans/ から削除。
+7. **クリーンアップ**: 技術仕様書の完了条件を満たしたら specs/ から削除。
 
 ## TODO更新
-- プランに記載したTODOは「開始/完了/中断」の節目で更新する（開始→in_progress、完了→done、中断→blocked/hold+理由1行）。
+- 技術仕様書に記載したTODOは「開始/完了/中断」の節目で更新する（開始→in_progress、完了→done、中断→blocked/hold+理由1行）。
 - ユーザーに制御を返す前に、最低1回はTODOの状態を最新化する。
 - 2ターン以上かかりそうなTODOは、可能なら分割して追跡する。
 

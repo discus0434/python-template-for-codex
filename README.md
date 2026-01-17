@@ -82,7 +82,7 @@ uv run pytest -k ...  # 任意でテストを絞り込み
 ## 初回利用の流れ（テンプレート初期化）
 
 1. Codexに `template-bootstrapper` を呼び出すよう指示し、リポジトリ名/パッケージ名/README/pyproject を初期化する。
-2. そのタイミングで「このリポジトリで何をするか」を対話で明確化し、最初のプランを作成する。
+2. そのタイミングで「このリポジトリで何をするか」を対話で明確化し、最初の技術仕様書を作成する。
    - 何を作るか（目的・成果物）
    - MVPのスコープとノンゴール
    - 期限・依存・実行環境の制約
@@ -90,9 +90,9 @@ uv run pytest -k ...  # 任意でテストを絞り込み
 
 ## 利用できるSkills（概要）
 
-- `template-bootstrapper`: テンプレート初期化と初回プラン作成のガイド
-- `planner`: 新規仕様追加・変更の要請を対話で明確化し、`plans/TEMPLATE.md` をコピーしてプランを作る
-- `plan-reviewer`: 実装後にプランとコード/テストの整合をセルフレビューする
+- `template-bootstrapper`: テンプレート初期化と初回技術仕様書作成のガイド
+- `spec-writer`: 新規仕様追加・変更の要請を対話で明確化し、`specs/TEMPLATE.md` をコピーして技術仕様書を作る
+- `spec-reviewer`: 実装後に技術仕様書とコード/テストの整合をセルフレビューする
 - `repo-guarder`: TDD/ドキュメント更新/禁止事項などのガードレール
 - `uv-runner`: uvの依存管理・実行・トラブルシュート
 - `pytest-driver`: 失敗テスト先行のTDDとテスト設計チェック
@@ -106,15 +106,15 @@ uv run pytest -k ...  # 任意でテストを絞り込み
 - `tests/` : テンプレートのテスト（TDD の起点）
 - `docs/REQUIREMENTS.md` : 現行の要求仕様
 - `docs/DESIGN.md` : アーキテクチャと設計ドキュメント
-- `plans/` : 仕様追加・変更時に作成するプラン置き場（`plans/TEMPLATE.md` を雛形に）
+- `specs/` : 仕様追加・変更時に作成する技術仕様書置き場（`specs/TEMPLATE.md` を雛形に）
 - `Makefile` : format/lint/test 用コマンド
 - `.github/workflows/ci.yml` : GitHub Actions で `make post-change` を自動実行
 
 ## ワークフロー（抜粋）
 
-1. 仕様追加・変更はまず `plans/` にプランを作成し、TDD で実装。
+1. 仕様追加・変更はまず `specs/` に技術仕様書を作成し、TDD で実装。
 2. 非テストコードを触ったら必ず対応するテストを追加/更新。
 3. 実装後は `make post-change` を実行しエラーが出ないことを確認する（CI も同じコマンドを実行）。
-4. docs 下のドキュメントを最新状態に上書きで反映し、`plans/` 下のプランを削除する。
+4. docs 下のドキュメントを最新状態に上書きで反映し、`specs/` 下の技術仕様書を削除する。
 
 より詳細なルールやライフサイクルは `AGENTS.md` を参照してください。

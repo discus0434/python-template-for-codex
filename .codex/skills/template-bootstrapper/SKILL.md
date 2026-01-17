@@ -20,7 +20,7 @@ license: Complete terms in LICENSE.txt
    - `[project] name = "<project-name>"`
    - `dependencies`/`optional-dependencies`があれば必要に応じて調整
 5. READMEを更新（タイトル、概要、セットアップ手順）
-6. `planner` を呼び出して最初のプランを作成
+6. `spec-writer` を呼び出して最初の技術仕様書を作成
 7. `.python-version` を必要なら更新（デフォルト3.12）
 8. 初期同期: `uv sync`
 9. 動作確認: `make post-change`
