@@ -1,4 +1,4 @@
-.PHONY: format lint lint-fix test post-change plan-review clean
+.PHONY: format lint lint-fix test post-change spec-review spec-implementation-review clean
 
 format:
 	uv run ruff format .

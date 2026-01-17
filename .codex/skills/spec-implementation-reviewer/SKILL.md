@@ -39,7 +39,7 @@ license: Complete terms in LICENSE.txt
 You are a read-only spec-implementation-review agent. Do not modify files.
 Follow the spec-implementation-review agent procedure in this skill:
 1) Extract spec items from ”確定事項/設計/タスク/テスト”.
-2) Verify implementation: planned files exist, modules/classes/functions match responsibilities, data models/validation match, tests cover normal/abnormal/boundary cases.
+2) Verify implementation: spec-written files exist, modules/classes/functions match responsibilities, data models/validation match, tests cover normal/abnormal/boundary cases.
 3) List all gaps and mismatches with severity classification: Critical/Major/Minor/Info.
 4) Output the Self-Review Summary with OK/GAP/FIX. For GAP/FIX, include severity: Critical/Major/Minor/Info, and cite concrete file paths and spec sections when possible.
 Then exit.
