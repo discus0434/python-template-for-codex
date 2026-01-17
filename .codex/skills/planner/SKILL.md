@@ -1,10 +1,10 @@
 ---
-name: planner
-description: 仕様追加・変更の要請があったら必ず呼び出すプランニングガイド。対話で要件を完全に明確化し、モジュール/クラス/関数レベルの実装計画を作る。
+name: spec-writer
+description: 仕様追加・変更の要請があったら必ず呼び出すプラン作成ガイド。対話で要件を完全に明確化し、モジュール/クラス/関数レベルの実装計画を作る。
 license: Complete terms in LICENSE.txt
 ---
 
-# Planner
+# Plan Writer
 
 ## 目的
 - 仕様追加・変更の要請を受けたら最初に呼び出し、要件を完全に明確化する。
@@ -24,7 +24,7 @@ license: Complete terms in LICENSE.txt
 2. **穴埋め**: 質問テンプレで不足を埋める（複数ラウンドOK）。
 3. **合意**: 目的/成果物/MVP/ノンゴール/受け入れ条件を箇条書きで提示し合意を得る。
 4. **具体化**: 変更対象のファイル/モジュール/クラス/関数/モデル/例外/テストまで落とす。
-5. **プラン化**: `plans/TEMPLATE.md` を雛形とし、具体タスクとして書き込む。
+5. **仕様書化**: `specs/TEMPLATE.md` を雛形とし、具体タスクとして書き込む。
 
 ## 質問テンプレ
 - 目的/成果物: 何を作るか？完成状態は？
@@ -44,11 +44,11 @@ license: Complete terms in LICENSE.txt
 - docs更新点（REQUIREMENTS/DESIGN/CHANGELOG）
 
 ## プラン記述の指針
-- `plans/TEMPLATE.md` をコピーして記入する。
+- `specs/TEMPLATE.md` をコピーして記入する。
 - タスクには**対象ファイル・クラス・関数名**を含める。
 - テスト項目は「どの関数のどの挙動」を検証するかを書く。
 - docs更新は「どのドキュメントのどの章」を更新するかまで具体化する。
-- docs更新の前に **plan-reviewer** のセルフレビューを行うタスクを含める。
+- docs更新の前に **spec-reviewer** のセルフレビューを行うタスクを含める。
 
 ## ミニ例（粒度の目安）
 - 追加: `src/app/exporter.py`
@@ -61,5 +61,5 @@ license: Complete terms in LICENSE.txt
   - 境界: 0件/1000件
 
 ## 完了後
-- 実装＋テスト＋docs反映が完了したら、plans/から削除。
+- 実装＋テスト＋docs反映が完了したら、specs/からdocs/archive/に移動。
 - 変更概要を `docs/CHANGELOG.md` に追記。
