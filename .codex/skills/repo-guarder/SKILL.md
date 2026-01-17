@@ -15,7 +15,7 @@ license: Complete terms in LICENSE.txt
 ## ライフサイクル（仕様追加・変更の標準手順）
 1. **プラン作成**: `plans/TEMPLATE.md` をコピーして埋める（1〜2営業日サイズ）。リスクが高ければ分割。
 2. **テスト先行**: 変更点に対応する失敗テストを追加（正常/異常/境界/NotFound/権限の両面）。
-3. **実装**: 最小実装→リファクタ。遅延import・不要フォールバックは禁止。
+3. **実装**: 最小実装→リファクタ。遅延import・不要フォールバックは禁止。構造化ログを出力する。エラー時は必ずログにtracebackを含む。
 4. **検証**: `make post-change`（ruff format+lint+pytest）。必要に応じて限定pytest。
 5. **セルフレビュー**: plan-reviewer でプランとコード/テストの一致を確認し、乖離があれば修正。
 6. **ドキュメント**: docs/REQUIREMENTS.md / docs/DESIGN.md を現況で上書き。履歴は `docs/CHANGELOG.md` に日付降順で追記。
